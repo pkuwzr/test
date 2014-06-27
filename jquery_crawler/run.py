@@ -31,4 +31,3 @@ if __name__ == '__main__':
     for i in range(THREAD_NUM):
         t = Crawler(i)
         t.start()
-
