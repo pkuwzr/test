@@ -7,11 +7,16 @@ GOOD_SUFFIX = ('.html', '.htm', '.xhtml', '.jsp', '.php', '.js')
 
 
 def contains_script(f):
-    with open(f) as tmp_f:
-        for l in tmp_f:
-            if 'type="text/javascript"' in l:
-                return True
-    return False
+    try:
+        with open(f) as tmp_f:
+            for l in tmp_f:
+                if 'type="text/javascript"' in l:
+                    return True
+        return False
+    except Exception, e:
+        print '______________________________________'
+        print os.getcwd()
+        print e
 
 
 def testAndRemove():
