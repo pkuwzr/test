@@ -18,22 +18,26 @@ def testAndRemove():
     '''
     Depth first walk the directory tree of the target directory.
     '''
-    fs = os.listdir('.')
-    for f in fs:
-        if os.path.isdir(f):
-            os.chdir(f)
-            testAndRemove()
-            os.chdir('..')
-            result = len(os.listdir(f))
-            if not result:
-                os.removedirs(f)
-        else:
-            f_suff = os.path.splitext(f)[-1]
-            if f_suff not in GOOD_SUFFIX:
-                os.remove(f)
-            if f_suff in GOOD_SUFFIX[:-1]:
-                if not contains_script(f):
+    try:
+        fs = os.listdir('.')
+        for f in fs:
+            if os.path.isdir(f):
+                os.chdir(f)
+                testAndRemove()
+                os.chdir('..')
+                result = len(os.listdir(f))
+                if not result:
+                    os.removedirs(f)
+            else:
+                f_suff = os.path.splitext(f)[-1]
+                if f_suff not in GOOD_SUFFIX:
                     os.remove(f)
+                if f_suff in GOOD_SUFFIX[:-1]:
+                    if not contains_script(f):
+                        os.remove(f)
+    except Exception, e:
+        print os.getcwd()
+        print e
 
 
 if __name__ == '__main__':
